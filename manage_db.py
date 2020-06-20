@@ -9,33 +9,37 @@ cur = con.cursor()
 
 def db_insert(name, phone, email):
   return """
-    INSERT INTO users(name, phone, email)
-    VALUES('{}', '{}', '{}') 
-    """.format(name, phone, email)
+  INSERT INTO users(name, phone, email)
+  VALUES('{}', '{}', '{}') 
+  """.format(name, phone, email)
 
-
-# cur.execute(db_insert('Jean','999361184', 'jeanborges946@gmail.com'))
-
-# con.commit()
-# con.close()
 
 def db_update(name, email):
   return """
-    UPDATE users SET name = '{}' WHERE email = '{}'
-    """.format(name, email)
+  UPDATE users SET name = '{}' WHERE email = '{}'
+  """.format(name, email)
 
-# cur.execute(db_update('Carlos', 'jeanborges941@gmail.com'))
-
-# con.commit()
-# con.close()
 
 def db_delete(email):
   return """
-    DELETE FROM users WHERE email='{}'
-    """.format(email)
+  DELETE FROM users WHERE email='{}'
+  """.format(email)
 
+def db_select(data, field):
+  return """
+  SELECT id, name, phone, email
+  FROM  users
+  WHERE {} = {}""".format(data, field)
 
-cur.execute(db_delete('jeanborges941@gmail.com'))
+# cur.execute(db_insert('Jean','999361184', 'jeanborges946@gmail.com'))
 
-con.commit()
+# cur.execute(db_update('Carlos', 'jeanborges941@gmail.com'))
+
+# cur.execute(db_delete('jeanborges941@gmail.com'))
+
+cur.execute(db_select('1', 'id'))
+  
+data = cur.fetchone()
+# con.commit()
 con.close()
+print(data)
